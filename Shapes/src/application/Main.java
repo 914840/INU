@@ -1,5 +1,7 @@
 package application;
 	
+
+
 import javafx.application.Application;
 import javafx.geometry.Orientation;
 import javafx.scene.Group;
@@ -7,6 +9,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Slider;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.RadialGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
@@ -14,6 +20,7 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.QuadCurveTo;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.Stage;
@@ -123,6 +130,39 @@ public class Main extends Application {
 					);
 			
 			donut.setEffect(dropShadow);
+			
+			// wypełnienie
+			Rectangle roundRect = new Rectangle(250,250,100,70);
+			roundRect.setArcHeight(20);
+			roundRect.setArcWidth(20);
+			root.getChildren().add(roundRect);
+			
+			LinearGradient lgradient = new LinearGradient(0.25, 0.25,
+					0.75, 0.75,
+					true,
+					CycleMethod.NO_CYCLE,
+					new Stop(0, Color.RED),
+					new Stop(1, Color.BLUE),
+					new Stop(0.3, Color.AQUA),
+					new Stop(0.7, Color.GOLD)
+					);
+			roundRect.setFill(lgradient);
+			
+			// gradient radialny
+			Ellipse ellipse1 = new Ellipse(100,300,70,70);
+			
+			RadialGradient rgradient = new RadialGradient(
+					0, 0,		//focus konta
+					0.5, 0.5,	// punkt
+					0.4,		// promien
+					true,		// proportional
+					CycleMethod.NO_CYCLE,
+					new Stop(0, Color.RED),
+					new Stop(1, Color.BLACK)
+					);
+			ellipse1.setFill(rgradient);
+ 			root.getChildren().add(ellipse1);
+			
 			
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
